@@ -8,10 +8,10 @@
   <meta name="description" content="">
   <meta name="author" content="Ray-wl">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="关于ajax的了解"/>
+  <meta property="og:title" content="坚持梦想"/>
   <meta property="og:description" content="自学 前端 javascript html css html5 css3" />
   <meta property="og:site_name" content="坚持梦想"/>
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="website" />
   <meta property="og:image" content="http://blog.our1988.xyz"/>
   
     <link rel="alternate" href="/atom.xml" title="坚持梦想" type="application/atom+xml">
@@ -43,7 +43,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">关于ajax的了解</p>
+          <p class="title">Untitled Post</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -100,7 +100,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2018-10-23</span>
-            <span class="time">23:08:44</span>
+            <span class="time">23:09:43</span>
           </span>
           
         </div>
@@ -108,7 +108,113 @@
         
         <!-- Post Main Content -->
         <div class="post-content">
-          
+          <h2 id="AJAX学习入门（包含Node-JS创建服务，托管静态文件）"><a href="#AJAX学习入门（包含Node-JS创建服务，托管静态文件）" class="headerlink" title="AJAX学习入门（包含Node JS创建服务，托管静态文件）"></a>AJAX学习入门（包含Node JS创建服务，托管静态文件）</h2><p>AJAX = Asynchronous JavaScript and XML(异步的JavaScript和XML)。</p>
+<p>AJAX不是新的编程语言，而是一种使用现在标准的新方法。</p>
+<p>AJAX最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。</p>
+<p>AJAX不需要任何浏览器插件，但需要用户允许JavaScript在浏览器上执行。</p>
+<h3 id="一、原生JavaScript使用AJAX"><a href="#一、原生JavaScript使用AJAX" class="headerlink" title="一、原生JavaScript使用AJAX"></a>一、原生JavaScript使用AJAX</h3><p>原生JavaScript使用AJAX的过程如下：</p>
+<ol>
+<li><p>第一步：获取XMLHttpRequest对象</p>
+</li>
+<li><p>第二部：设置状态监听函数</p>
+</li>
+<li><p>open一个请求（规定请求的类型、参数等）</p>
+</li>
+<li><p>向服务器send一个请求</p>
+</li>
+<li><p>在监听函数中，判断readyState==4 &amp;&amp; status==200，若成立则表示请求成功</p>
+</li>
+<li><p>使用ajax.responseText和ajax.responseXML接收相应数据，并使用原生JS操作DOM进行显示</p>
+</li>
+</ol>
+<p><strong>备注</strong>：ajax.responseText返回的是对应的字符串，ajax.responseXML返回的是对应的HTML结构代码</p>
+<p><strong>代码如下：</strong></p>
+<pre><code>// 第一部分：获取XMLHttpRequest对象
+var ajax = new XMLHttpRequest();
+
+// 第二部分：设置状态监听函数，使用onreadystatechange
+ajax.onreadystatechange = function(){
+
+    // 第五部分：send请求后，在监听函数中判断readyState == 4 &amp;&amp; status == 200，判断请求是否成功
+    if(ajax.readyState == 4 &amp;&amp; ajax.status == 200){
+
+        // 第六部分：若请求成功，使用ajax.responseText和ajax.responseXML接收相应数据，并使用原生JS操作DOM进行显示
+        var res = JSON.parse(ajax.responseText);
+        for(var i = 0;res.length;i++){
+            str += res[i].name+&apos;,&apos;
+        }            
+        document.getElementById(&apos;show&apos;).innerHTML = str;
+    }
+}
+
+// 第三部分：open一个请求（规定请求的类型、参数等）
+ajax.open(&quot;GET&quot;,&quot;json.json&quot;,true)
+
+// 第四部分：向服务器send一个请求（该请求就是第三部分open的那个请求）
+ajax.send(null)
+</code></pre><p><strong>拓展学习：</strong></p>
+<p><strong>1. JSON.stringify()</strong></p>
+<p>从一个字符串中解析出json对象</p>
+<p><strong>例子：</strong></p>
+<pre><code>// 定义一个字符串
+var data = &apos;{&quot;name&quot;:&quot;goatling&quot;}&apos;
+
+// 解析对象
+JSON.parse(data)
+
+// 结果（是一个对象）
+name:&quot;goatling&quot;
+</code></pre><p><strong>2. JSON.parse()</strong></p>
+<p>从一个对象中解析出字符串</p>
+<p><strong>例子：</strong></p>
+<pre><code>// 定义一个字符串
+var data = {name:&apos;goatling&apos;}
+
+// 解析字符串
+JSON.stringify(data)
+
+// 结果（是一个字符串）
+&apos;{&quot;name&quot;:&quot;goatling&quot;}&apos;
+</code></pre><p><strong>3. onreadystatechange事件</strong></p>
+<p>每当readyState属性发生变化，就会触发onreadystatechange事件</p>
+<table><br>    <tr><br>        <td bgcolor="#bbb">属性</td><br>        <td bgcolor="#bbb">描述</td><br>    </tr><br>    <tr><br>        <td><font color="#00f">readyState</font></td><br>        <td><font size="2" color="#00f">存有XMLHttpRequest的状态，从0到4变化<br><br>            0：请求未初始化<br><br>            1：服务器连接已建立<br><br>            2：请求已接收<br><br>            3：请求处理中<br><br>            4：请求已完成，且响应已就绪</font></td><br>    </tr><br></table>
+
+<p><strong>补充</strong>：</p>
+<p>以上代码无法在本地执行，需要通过服务器才能运行，所以需要使用node js建立一个服务来运行上述代码，这里是一个跨域的问题，后面会专门来学习，本次只是掌握了简单的解决办法，第二部分将介绍node js建立服务的过程</p>
+<h3 id="二、使用Node-JS建立服务（托管静态文件）"><a href="#二、使用Node-JS建立服务（托管静态文件）" class="headerlink" title="二、使用Node JS建立服务（托管静态文件）"></a>二、使用Node JS建立服务（托管静态文件）</h3><ol>
+<li><p>首先需要安装node js和npm，并安装相应应用模块，这里需要使用express模块</p>
+</li>
+<li><p>文件配置，如图所示，建立一个入口文件app.js，一个文件夹用来存储静态文件</p>
+<p> <img src="https://i.imgur.com/BXaFTOD.jpg" alt="文件配置" title="文件配置">  </p>
+</li>
+<li><p>在app.js中配置相关信息，如下：</p>
+<pre><code>// 引用express模块
+var express = require(&apos;express&apos;);
+
+// 创建一个express实例
+var app = express();
+
+// 配置托管的静态文件地址
+app.use(express.static(&apos;test&apos;));
+
+// 监听端口并配置回调函数，若创建服务成功则执行该函数
+app.listen(8081, function(){
+    console.log(&quot;服务创建成功，访问http://127.0.0.1:8081进行查看)
+})
+</code></pre></li>
+</ol>
+<p>以上为创建服务，托管静态文件的过程，关于Node JS的其他学习内容后续将单独讲解。</p>
+<h3 id="三、学习收获"><a href="#三、学习收获" class="headerlink" title="三、学习收获"></a>三、学习收获</h3><ol>
+<li><p>这是使用markdown编辑器写的第一篇blog，首先掌握了markdown的基本语法，在自娱自乐的道路上又多了一项技能；</p>
+</li>
+<li><p>Node JS之前就有学习过，但是长时间没有复习，只记得大体的框架和知识结构，细节的东西基本忘得一干二净，这次通过其他方面学习的实际需求把Node JS中托管静态文件复习了以便，当然只是基本的操作，更深入的知识点后续还需要持续学习和积累；</p>
+</li>
+<li><p>关于ajax的内容，之前一直都停留在理论阶段，每次都能看懂，但是自己写代码时又什么都不会，尤其适用原生JS时，后面还需要寻找一些实际中项目能用到的例子深化理解，学习ajax更深入的知识；</p>
+</li>
+<li><p>最好的学习方法就是亲自写代码，出现bug，解决bug，在解决bug的无限循环中去学习。</p>
+</li>
+</ol>
+
         </div>
       </div>
     </div>
