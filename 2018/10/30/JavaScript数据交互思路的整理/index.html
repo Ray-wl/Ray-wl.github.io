@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Ray-wl">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="JS数据交互思路的整理"/>
+  <meta property="og:description" content="自学 前端 javascript html css html5 css3" />
+  <meta property="og:site_name" content="坚持梦想"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://blog.our1988.xyz"/>
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>坚持梦想</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">JS数据交互思路的整理</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  
+                  标签
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories">
+                  
+                  分类
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Ray-wl</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-10-30</span>
+            <span class="time">23:00:34</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/前端/">前端</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/数据交互/">#数据交互</a> <a class="tag" href="/tags/JavaScript/">#JavaScript</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h2 id="JavaScript数据交互思路的整理"><a href="#JavaScript数据交互思路的整理" class="headerlink" title="JavaScript数据交互思路的整理"></a>JavaScript数据交互思路的整理</h2><h3 id="本文中关于跨域的内容节选自：HTTPS-WWW-CNBLOGS-COM-ROAM-P-7520433-HTML"><a href="#本文中关于跨域的内容节选自：HTTPS-WWW-CNBLOGS-COM-ROAM-P-7520433-HTML" class="headerlink" title="本文中关于跨域的内容节选自：HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML"></a><strong>本文中关于跨域的内容节选自：<a href="HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML" target="_blank" rel="noopener">HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML</a></strong></h3><p>使用JavaScript操作DOM或BOM都只是其主要工作的一部分，在目前越来越多的数据驱动页面的需求来看，JavaScript操作数据在未来的工作中将会占很大的比重。</p>
+<p>那么使用JavaScript如何获取数据？如何操作数据？如何对数据进行处理？是近期学习的重点。</p>
+<p>对于JavaScript操作数据，之前的学习中已经学习了一些入门的基础知识，在学习了解react和Vue时，关于MVVM模型，这些都是有初步了解，但一方面不深入，另一方面长时间没有复习，所以此次关于JavaScript同数据之间的学习仍然需要从零开始这个自己需要认识到。</p>
+<p>关于JavaScript同数据的联系，我初步整理了一个思维导图，图中都是依据自己的理解而表达的，如下：</p>
+<p><img src="https://i.imgur.com/SflCmOt.jpg" alt="JavaScript同数据的关系"></p>
+<p>通过该图可以总结出以下主要学习的知识点：</p>
+<h3 id="1-ajax方法"><a href="#1-ajax方法" class="headerlink" title="1. ajax方法"></a><strong>1. ajax方法</strong></h3><p>可以通过原生JavaScript或jQuery使用ajax方法访问数据，但是面临两个问题</p>
+<blockquote>
+<p>①. 无法直接访问本地数据</p>
+</blockquote>
+<blockquote>
+<p>②. 无法直接访问远程数据</p>
+</blockquote>
+<p>换句话说就是仅仅使用ajax什么数据都访问不成，所以引出后面的两个知识点：Node JS和跨域。</p>
+<h3 id="2-Node-JS（静态文件托管）"><a href="#2-Node-JS（静态文件托管）" class="headerlink" title="2. Node JS（静态文件托管）"></a><strong>2. Node JS（静态文件托管）</strong></h3><p>使用ajax方法无法直接访问本地数据，必须通过创建本地服务器才能访问，创建服务的方法有很多，如SublineServer、Tomat服务器、node js、window系统自带的IIS功能、XAMPP软件等。</p>
+<p>Node js本身就是运行在服务端的JavaScript，是一个基于Chrome JavaScript运行时建立的一个平台。他是基于JavaScript，入门更能简单一些（当然深入学习仍是有难度的），所以选择了node js的方式创建本地服务（托管静态文件）。</p>
+<h3 id="3-跨域"><a href="#3-跨域" class="headerlink" title="3. 跨域"></a><strong>3. 跨域</strong></h3><p>对于跨域最常见的理解是狭义的跨域，是由浏览器同源策略限制的一类请求场景。</p>
+<p>至于何为跨域，以及解决跨域的多种方法，我将在学习后用一整篇的博文来总结。</p>
+<p><strong><em>以上就是对于JavaScript实现数据交互所需要的最基本的一些方法和技巧，近期将对以上总结的一些重要知识点、方法进行针对、深入的学习，并且在学后再写博文进行总结，以便加深理解。</em></strong></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
