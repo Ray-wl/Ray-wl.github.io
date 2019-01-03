@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Ray-wl">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="小程序 -- 随心听音乐播放器"/>
+  <meta property="og:description" content="自学 前端 javascript html css html5 css3" />
+  <meta property="og:site_name" content="坚持梦想"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://blog.our1988.xyz"/>
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>坚持梦想</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">小程序 -- 随心听音乐播放器</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  
+                  标签
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories">
+                  
+                  分类
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Ray-wl</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-01-04</span>
+            <span class="time">00:28:29</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/前端/">前端</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/数据交互/">#数据交互</a> <a class="tag" href="/tags/小程序/">#小程序</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h2 id="小程序-–-随心听音乐播放器（未完待续）"><a href="#小程序-–-随心听音乐播放器（未完待续）" class="headerlink" title="小程序 – 随心听音乐播放器（未完待续）"></a>小程序 – 随心听音乐播放器（未完待续）</h2><p>本人喜欢听音乐，所以打算自己写一个音乐播放器，之前用HTML的audio标签写了一个简易版的，能够随机播放指定排行榜的音乐，但是在手机浏览器里面播放时好多后台操作无法使用，需要手机权限（目前还不懂这些），最后决定使用小程序写一个，很多后台操作可以借用微信来完成。</p>
+<p>首先，写了一个1.0.0版本的乞丐版播放器，没有使用QQ音乐的API，而是自己写的songmid数据，主要在于熟悉小程序的编写，搞清套路；</p>
+<p>紧接着升级到1.0.1版本，使用了QQ音乐的API，对返回数据进行处理并使用，前两个版本的界面如下：</p>
+<p><img src="https://i.imgur.com/eWFdm4p.jpg" alt=""></p>
+<p>功能一目了然，不多说。</p>
+<p>最后，升级到1.0.2版本，添加了音乐搜索和播放列表，暂时到此为止，后续有更好的想法会再进行版本升级，本文以1.0.2版本进行说明。</p>
+<h3 id="一、静态页面"><a href="#一、静态页面" class="headerlink" title="一、静态页面"></a>一、静态页面</h3><p>搜索歌曲后，显示搜索结果部分，热门歌曲自动消失；单击音乐排行榜，显示热门歌曲部分，搜索结果部分自动消失。搜索结果和热门歌曲是两个并列的关系，不同时显示</p>
+<pre><code>&lt;view class=&quot;container&quot;&gt;
+  &lt;!-- 搜索歌曲 --&gt;
+  &lt;view class=&quot;search&quot;&gt;
+    &lt;input value=&quot;{{value}}&quot; bindconfirm=&quot;getInputValue&quot; bindfocus=&quot;inputFocus&quot; placeholder=&quot;搜索歌曲/歌手&quot;&gt;&lt;/input&gt;
+    &lt;icon type=&quot;search&quot; size=&quot;20&quot;&gt;&lt;/icon&gt;
+  &lt;/view&gt;
+
+    &lt;!-- 音乐排行榜 --&gt;
+  &lt;view class=&quot;topList&quot;&gt;
+    &lt;text&gt;排行榜&lt;/text&gt;
+    &lt;block wx:key=&quot;id&quot; wx:for=&quot;{{topList}}&quot;&gt;
+      &lt;view bindtap=&quot;getBangDan&quot; data-index=&quot;{{item}}&quot; class=&quot;topList-{{index}}&quot;&gt;
+        &lt;image class=&quot;topList-img&quot; src=&quot;{{item.imgurl}}&quot;&gt;&lt;/image&gt;
+        &lt;text class=&quot;topList-name&quot;&gt;{{item.name}}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/block&gt;
+  &lt;/view&gt;
+
+  &lt;!-- 搜索结果 --&gt;
+  &lt;view class=&quot;topSong&quot; style=&quot;height:0;&quot;&gt;
+    &lt;text&gt;{{inputValue}}&lt;/text&gt;
+    &lt;block wx:key=&quot;id&quot; wx:for=&quot;{{searchResult}}&quot;&gt; 
+      &lt;view class=&quot;topSong-{{index}}&quot; bindlongtap=&quot;addToPlaylist&quot; bindtap=&quot;tapToPlay&quot; data-index=&quot;{{item}}&quot;&gt;
+        &lt;image class=&quot;topSong-img&quot; src=&quot;https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg?max_age=2592000&quot; style=&quot;opacity:{{albumOpacity}}&quot;&gt;&lt;/image&gt;
+        &lt;text class=&quot;topSong-name&quot;&gt;{{item.songname}}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/block&gt;
+  &lt;/view&gt;
+
+  &lt;!-- 热门单曲 --&gt;
+  &lt;view class=&quot;topSong&quot; style=&quot;height:0&quot;&gt;
+    &lt;text&gt;{{bangdanName}}&lt;/text&gt;
+    &lt;block wx:key=&quot;id&quot; wx:for=&quot;{{topSong}}&quot;&gt; 
+      &lt;view class=&quot;topSong-{{index}}&quot; bindlongtap=&quot;addToPlaylist&quot; bindtap=&quot;tapToPlay&quot; data-index=&quot;{{item.data}}&quot;&gt;
+        &lt;image class=&quot;topSong-img&quot; src=&quot;https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.data.albummid}}.jpg?max_age=2592000&quot; style=&quot;opacity:{{albumOpacity}}&quot;&gt;&lt;/image&gt;
+        &lt;text class=&quot;topSong-name&quot;&gt;{{item.data.songname}}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/block&gt;
+  &lt;/view&gt;
+
+  &lt;!-- 播放列表显示时，整个页面的蒙版 --&gt;
+  &lt;view bindtap=&quot;showMenu&quot; class=&quot;pagemask&quot; style=&quot;display:{{pageMaskdisplay}};width:{{maskWidth}};height:{{maskHeight}}&quot;&gt;&lt;/view&gt;
+
+  &lt;!-- 播放列表 --&gt;
+  &lt;view class=&quot;playlist&quot; style=&quot;height:{{playlistHeight}};bottom:{{bottom}}&quot;&gt;
+    &lt;block wx:key=&quot;id&quot; wx:for=&quot;{{playlist}}&quot;&gt;
+      &lt;view class=&quot;{{currentSongIndex===index?'selected':''}}&quot; bindtap=&quot;changePage&quot; data-index=&quot;{{item.index}}&quot; data-key=&quot;{{index}}&quot;&gt;
+        &lt;text&gt;{{index+1}}. &lt;/text&gt;
+        &lt;view class=&quot;list-info&quot;&gt;
+          &lt;view class=&quot;list-songname&quot;&gt;{{item.index.songname}}&lt;/view&gt;
+          &lt;view class=&quot;list-singer&quot;&gt;{{item.index.singer[0].name}} --《{{item.index.albumname}}》&lt;/view&gt;
+          &lt;icon catchtap=&quot;delSong&quot; data-order=&quot;{{index}}&quot; type=&quot;cancel&quot; size=&quot;18&quot; color=&quot;#eee&quot;&gt;&lt;/icon&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/block&gt;
+  &lt;/view&gt;
+
+  &lt;!-- 底部播放器 --&gt;
+  &lt;view class=&quot;player&quot; style=&quot;width:{{playerWidth}}; background:{{playerBackgroundColor}};padding-left:{{paddingLeft}}&quot;&gt;
+    &lt;!-- 播放器图片 --&gt;
+    &lt;view class=&quot;album&quot; bindtap=&quot;close&quot;&gt;
+      &lt;image style=&quot;animation: {{rotate0}} 10s linear infinite;animation-play-state:{{animationState}}&quot; src=&quot;https://y.gtimg.cn/music/photo_new/T002R300x300M000{{albummid}}.jpg?max_age=2592000&quot;&gt;&lt;/image&gt;
+      &lt;!-- &lt;image src=&quot;{{playerAlbum}}&quot;&gt;&lt;/image&gt; --&gt;
+    &lt;/view&gt;
+    &lt;!-- 播放器歌曲名称及作者、专辑名称 --&gt;
+    &lt;view class=&quot;info&quot;&gt;
+      &lt;view class=&quot;name&quot;&gt;{{songname}}&lt;/view&gt;
+      &lt;view class=&quot;singer&quot;&gt;{{singer}} --《{{albumname}}》&lt;/view&gt;
+    &lt;/view&gt;
+    &lt;!-- 播放器控制部分（播放模式、播放/暂停、下一曲、播放列表） --&gt;
+    &lt;view class=&quot;control&quot;&gt;
+      &lt;button bindtap=&quot;showMenu&quot; class=&quot;menu&quot; style=&quot;background:url({{menuSrc}}) no-repeat;background-size:contain&quot;&gt;&lt;/button&gt;
+      &lt;button bindtap=&quot;next&quot; class=&quot;next&quot; style=&quot;background:url({{nextSrc}}) no-repeat;background-size:contain&quot;&gt;&lt;/button&gt;
+      &lt;button bindtap=&quot;changePlayState&quot; class=&quot;play&quot; style=&quot;background:url({{playSrc}}) no-repeat;background-size:contain&quot;&gt;&lt;/button&gt;
+      &lt;button bindtap=&quot;changePlayMode&quot; class=&quot;playMode&quot; style=&quot;background:url({{playModeSrc}}) no-repeat;background-size:contain&quot;&gt;&lt;/button&gt;
+    &lt;/view&gt;
+    &lt;!-- 播放器进度条 --&gt;
+    &lt;view class=&quot;progress&quot; style=&quot;display:{{progressDisplay}}&quot;&gt;
+      &lt;slider bindchange=&apos;toSeek&apos; block-size=&apos;0&apos; block-color=&apos;rgba(255,255,255,0.5)&apos; value=&apos;{{progressValue}}&apos; step=&quot;1&quot; /&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p>对于小程序的路由什么的还没弄的太明白，所以播放器是单页面的，没有做多页，其余的没有什么问题，效果图如下：</p>
+<p><img src="https://i.imgur.com/hbvf2fG.jpg" alt=""></p>
+<h3 id="二、app-json配置"><a href="#二、app-json配置" class="headerlink" title="二、app.json配置"></a>二、app.json配置</h3><pre><code>// app.json配置
+{
+  &quot;pages&quot;:[
+    &quot;pages/index/index&quot;,
+    &quot;pages/logs/logs&quot;
+  ],
+
+    //     添加允许后台运行的功能（组件）
+  &quot;requiredBackgroundModes&quot;:[
+    &quot;audio&quot;
+  ],
+  &quot;window&quot;:{
+    &quot;backgroundTextStyle&quot;:&quot;light&quot;,                    // 下拉loading的样式（dark和light）
+    &quot;navigationBarBackgroundColor&quot;: &quot;#3d3b4f&quot;,        // 这只导航栏背景色（这里没有使用自定义导航栏，如果自定义还需要设置 navigationStyle:&quot;custom&quot;）
+    &quot;navigationBarTitleText&quot;: &quot;随心听&quot;,                // 导航栏标题
+    &quot;navigationBarTextStyle&quot;:&quot;white&quot;                // 导航栏文字样式，主要设置颜色（white和black两种）
+  }
+}
+</code></pre><h3 id="三、index-js文件"><a href="#三、index-js文件" class="headerlink" title="三、index.js文件"></a>三、index.js文件</h3><p><img src="https://i.imgur.com/4Mte5PH.png" alt=""></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
