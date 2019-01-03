@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Ray-wl">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="JavaScript实现俄罗斯方块"/>
+  <meta property="og:description" content="自学 前端 javascript html css html5 css3" />
+  <meta property="og:site_name" content="坚持梦想"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://blog.our1988.xyz"/>
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>坚持梦想</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">JavaScript实现俄罗斯方块</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags">
+                  
+                  标签
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories">
+                  
+                  分类
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Ray-wl</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-01-04</span>
+            <span class="time">00:19:09</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/前端/">前端</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/交互/">#交互</a> <a class="tag" href="/tags/页面小游戏/">#页面小游戏</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h2 id="JavaScript实现俄罗斯方块"><a href="#JavaScript实现俄罗斯方块" class="headerlink" title="JavaScript实现俄罗斯方块"></a>JavaScript实现俄罗斯方块</h2><p>一直想用JavaScript写一个小游戏，奈何小白一枚，对于一些游戏的思路和算法不是很清晰，最近闲暇时间在网上看了几篇关于俄罗斯方块的博客，终于理清了思路，决定亲自尝试一下。下面就是我实现的俄罗斯方块的截图，虽然还有不尽人意的地方，但是基本接近游戏版的俄罗斯方块，功能也算齐全，也没有明显的BUG。</p>
+<p><img src="https://i.imgur.com/oebWJ2l.jpg" alt=""></p>
+<p>###主要功能：</p>
+<ol>
+<li>图形移动</li>
+<li>图形变形</li>
+<li>消行，并在中间位置显示每次消行的数量</li>
+<li>图形预览</li>
+<li>右侧数据（分数、行数、最高分、等级）的显示和修改</li>
+<li>游戏开始、暂停，对应键盘按键开始和暂停时间绑定</li>
+<li>随着游戏的进行和分数的增加，等级升高，图形下落速度增快</li>
+</ol>
+<hr>
+<p>###主要思路：</p>
+<ol>
+<li>游戏面板是一个竖20行，横10列的table，并创建一个二维数组board,二维数组的每一项board[i][j]同table的每一项cell一一对应；</li>
+<li>使用table.rows[i].cells[j]获取table中的每一项，并设置当前td的样式，形成图形的形状；</li>
+<li>图形的定义，这部分当时是用了较长的时间才搞明白，如下图，总共是7个图形，共19个形状；</li>
+<li>判断图形是否可以放入初始位置 → 渲染图形 → setInterval自动下落 → 每次下落前判断是否触底 → 执行下落，擦除上一次位置的图形，渲染新图形  → 左右移动（每次移动前判断是都到达边界） → 触底后图形存在的区域board[i][j]=1，擦除面板样式，根据最新board的值重新渲染样式 → 判断是否存在满行，进行消行 → 根据消除的情况修改scores、lines、level的值 → 图形不能放入初始位置，game over，更新hightScores；</li>
+<li>最后将游戏开始、暂停、恢复事件绑定在按钮和相应的键盘按键上；</li>
+<li>上述是大体思路，还有一些细节在开发时需要一一完善。</li>
+</ol>
+<p><img src="https://i.imgur.com/Grxpffz.jpg" alt=""></p>
+<hr>
+<p>###HTML代码</p>
+<pre><code>&lt;div class=&quot;wrap&quot;&gt;
+    &lt;div class=&quot;main&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;right&quot;&gt;
+        &lt;div class=&quot;nextBlock&quot;&gt;
+            &lt;table&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;scores&quot;&gt;
+            &lt;p&gt;Scores:&lt;/p&gt;
+            &lt;span id=&quot;score&quot;&gt;0&lt;/span&gt;
+            &lt;p&gt;Lines:&lt;/p&gt;
+            &lt;span id=&quot;lines&quot;&gt;0&lt;/span&gt;
+            &lt;p&gt;High Scores:&lt;/p&gt;
+            &lt;span id=&quot;highScores&quot;&gt;0&lt;/span&gt;
+            &lt;p&gt;Level:&lt;/p&gt;
+            &lt;span id=&quot;level&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;control&quot;&gt;
+            &lt;button id=&quot;start&quot;&gt;Start&lt;/button&gt;
+            &lt;button id=&quot;pause&quot;&gt;Pause&lt;/button&gt;                
+        &lt;/div&gt;
+        &lt;div class=&quot;howToPlay&quot;&gt;
+            &lt;p&gt;↑ ：变形&lt;/p&gt;
+            &lt;p&gt;↓ ：加速下降&lt;/p&gt;
+            &lt;p&gt;← ：向左移动&lt;/p&gt;
+            &lt;p&gt;→ ：向右移动&lt;/p&gt;
+            &lt;p&gt;S ：游戏开始（开始新游戏）&lt;/p&gt;
+            &lt;p&gt;Shift ：游戏暂停/游戏继续&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;show&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><hr>
+<p>###CSS样式</p>
+<p>本文重点在JavaScript，这里不对样式进行表述。</p>
+<hr>
+<p>###JavaScript代码</p>
+<p>首先，下面是需要用到的一些变量</p>
+<pre><code>// board的行数和列数
+var boardHeight     = 20;                
+var boardWidth        = 10;
+
+// 用来存放图形的原始值
+var originalBlock     = {
+            o : [
+                    [{x:1,y:1},{x:2,y:1},{x:1,y:2},{x:2,y:2}]
+                ],       // 方块
+            i : [
+                    [{x:1,y:0},{x:1,y:1},{x:1,y:2},{x:1,y:3}],
+                    [{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1}]
+                ],          // 长条
+            l : [
+                    [{x:1,y:0},{x:1,y:1},{x:1,y:2},{x:2,y:2}],
+                    [{x:0,y:1},{x:0,y:2},{x:1,y:1},{x:2,y:1}],
+                    [{x:1,y:0},{x:2,y:0},{x:2,y:1},{x:2,y:2}],
+                    [{x:0,y:2},{x:1,y:2},{x:2,y:1},{x:2,y:2}]
+                ],          // L型
+            j : [
+                    [{x:2,y:0},{x:2,y:1},{x:2,y:2},{x:1,y:2}],
+                    [{x:0,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:2}],
+                    [{x:1,y:0},{x:2,y:0},{x:1,y:1},{x:1,y:2}],
+                    [{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:2,y:2}]
+                ],          // 反L型
+            z : [
+                    [{x:0,y:1},{x:1,y:1},{x:1,y:2},{x:2,y:2}],
+                    [{x:1,y:1},{x:2,y:0},{x:2,y:1},{x:1,y:2}]
+                ],          // Z型
+            s : [
+                    [{x:1,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:1}],
+                    [{x:1,y:0},{x:1,y:1},{x:2,y:1},{x:2,y:2}]
+                ],          // 反Z型
+            t : [
+                    [{x:0,y:1},{x:1,y:1},{x:1,y:2},{x:2,y:1}],
+                    [{x:0,y:1},{x:1,y:0},{x:1,y:1},{x:1,y:2}],
+                    [{x:0,y:2},{x:1,y:1},{x:1,y:2},{x:2,y:2}],
+                    [{x:1,y:0},{x:1,y:1},{x:1,y:2},{x:2,y:1}]
+                ]          // T型
+};
+
+var currentBlock,                    // 存放图形位置信息的对象 
+    nextBlock,                        // 表示产生的下一个图形（预览图形）
+    timer,                            // 用来存储setInterval，便于对其及时清除
+    random                            // 用来存放产生block时随机数
+    nextRandom = Math.random();        // 预览图形的随机数
+
+var    gameStatus        = 2;            // 存储游戏状态，初始值为1，表示游戏运行，0表示游戏结束，2表示游戏未初始化，不能进行任何操作，主要是pause按钮
+var    rotateIndex     = 0;            // 根据图形变形的数量决定其大小，每变形一次+1，最大时回0
+var nextRotateIndex
+
+// 获取到页面中的table元素，用于操作table的css样式（主要为颜色）
+var table
+var prevTable
+
+// 获取到页面中所有tr元素（这个在打印board状态时使用，对游戏运行而言是非必须的）
+var tr                 = document.getElementsByTagName(&apos;tr&apos;);
+
+// 同table对应的二维数组（数组需要设置成可配置），每个点的值为0则表示为空，值为1则表示被图形占用
+var board             = new Array(boardHeight);
+var prevBoard         = new Array(4);
+
+// 储存7中图形的数组
+var tuxing             = [&apos;o&apos;,&apos;i&apos;,&apos;l&apos;,&apos;j&apos;,&apos;z&apos;,&apos;s&apos;,&apos;t&apos;];
+
+var lines = 0;                        // 存储游戏过程中消行的总数
+var onecLine                         // 每次消行消掉的数量
+var scores = 0;                        // 游戏获得的总分数
+var highScore                         // 游戏的最高分数
+
+// 存储setInterval的时间间隔，用来设置图形下移速度
+var speeds = [1000,700,500,300,200,100]    
+</code></pre><hr>
+<p>#####动态创建table</p>
+<pre><code>function createTable(){
+    var tbl,tr,td;
+    tbl = $(&apos;&lt;table&gt;&lt;/table&gt;&apos;).appendTo(&apos;.main&apos;)
+    for(var i=0;i&lt;boardHeight;i++){
+        tr = $(&apos;&lt;tr&gt;&lt;/tr&gt;&apos;).appendTo(tbl)
+        for(var j=0;j&lt;boardWidth;j++){
+            td = $(&apos;&lt;td&gt;&lt;/td&gt;&apos;).appendTo(tr)
+        }
+    }
+    table = $(&apos;.main table&apos;)[0]
+}
+</code></pre><hr>
+<p>#####创建board，并与table的每一项cell相对应</p>
+<pre><code>function createBoard(){
+    for(var i=0;i&lt;boardHeight;i++){
+        board[i] = new Array(boardWidth);
+        for(var j=0;j&lt;boardWidth;j++){
+            board[i][j] = 0
+        }
+    }
+}
+</code></pre><hr>
+<p>#####产生新图形</p>
+<p>这里没有使用变量中定义的originalBlock，因为二者的初始位置不同，我没有通过换算来获取，而是直接使用了两个数据（数据小，直接修改方便）。</p>
+<pre><code>function createBlock(){
+    block = {
+        o : [
+                [{x:4,y:0},{x:5,y:0},{x:4,y:1},{x:5,y:1}]
+            ],       // 方块
+        i : [
+                [{x:4,y:0},{x:4,y:1},{x:4,y:2},{x:4,y:3}],
+                [{x:4,y:0},{x:5,y:0},{x:6,y:0},{x:3,y:0}]
+            ],          // 长条
+        l : [
+                [{x:4,y:0},{x:4,y:1},{x:4,y:2},{x:5,y:2}],
+                [{x:4,y:0},{x:4,y:1},{x:5,y:0},{x:6,y:0}],
+                [{x:5,y:0},{x:6,y:0},{x:6,y:1},{x:6,y:2}],
+                [{x:4,y:1},{x:5,y:1},{x:6,y:0},{x:6,y:1}]
+            ],          // L型
+        j : [
+                [{x:5,y:0},{x:5,y:1},{x:5,y:2},{x:4,y:2}],
+                [{x:4,y:0},{x:4,y:1},{x:5,y:1},{x:6,y:1}],
+                [{x:4,y:0},{x:5,y:0},{x:4,y:1},{x:4,y:2}],
+                [{x:4,y:0},{x:5,y:0},{x:6,y:0},{x:6,y:1}]
+            ],          // 反L型
+        z : [
+                [{x:3,y:0},{x:4,y:0},{x:4,y:1},{x:5,y:1}],
+                [{x:3,y:1},{x:4,y:0},{x:4,y:1},{x:3,y:2}]
+            ],          // Z型
+        s : [
+                [{x:4,y:0},{x:3,y:1},{x:4,y:1},{x:5,y:0}],
+                [{x:3,y:0},{x:3,y:1},{x:4,y:1},{x:4,y:2}]
+            ],          // 反Z型
+        t : [
+                [{x:3,y:0},{x:4,y:0},{x:4,y:1},{x:5,y:0}],
+                [{x:3,y:1},{x:4,y:0},{x:4,y:1},{x:4,y:2}],
+                [{x:3,y:1},{x:4,y:0},{x:4,y:1},{x:5,y:1}],
+                [{x:4,y:0},{x:4,y:1},{x:4,y:2},{x:5,y:1}]
+            ]          // T型
+    };
+    random = nextRandom;
+    switch(tuxing[Math.floor(random*7)]){
+        case &apos;o&apos; :
+            nextRandom = Math.random();
+            return block.o;
+        case &apos;i&apos; :
+            nextRandom = Math.random();
+            return block.i;
+        case &apos;l&apos; :
+            nextRandom = Math.random();
+            return block.l;
+        case &apos;j&apos; :
+            nextRandom = Math.random();
+            return block.j;
+        case &apos;z&apos; :
+            nextRandom = Math.random();
+            return block.z;
+        case &apos;s&apos; :
+            nextRandom = Math.random();
+            return block.s;
+        case &apos;t&apos; :
+            nextRandom = Math.random();
+            return block.t;
+    }
+}
+</code></pre><hr>
+<p>#####创建预览区域的图形，并对其进行添加擦除、重绘等操作<br>    function createPrevBoard(){<br>        switch(tuxing[Math.floor(nextRandom*7)]){<br>            case ‘o’ :<br>                nextBlock = originalBlock.o;<br>                break;<br>            case ‘i’ :<br>                nextBlock = originalBlock.i;<br>                break;<br>            case ‘l’ :<br>                nextBlock = originalBlock.l;<br>                break;<br>            case ‘j’ :<br>                nextBlock = originalBlock.j;<br>                break;<br>            case ‘z’ :<br>                nextBlock = originalBlock.z;<br>                break;<br>            case ‘s’ :<br>                nextBlock = originalBlock.s;<br>                break;<br>            case ‘t’ :<br>                nextBlock = originalBlock.t;<br>                break;<br>        }<br>        prevTable = $(‘.nextBlock table’)[0]</p>
+<pre><code>    // 随机产生图形
+    nextRotateIndex = Math.floor(nextRandom*nextBlock.length);
+
+    // 对预览区域进行擦除
+    for(var i=0;i&lt;4;i++){
+        for(var j=0;j&lt;4;j++){
+            prevTable.rows[i].cells[j].style.background = &apos;#ccc&apos;;
+            prevTable.rows[i].cells[j].style.border = &apos;none&apos;;
+        }
+    }
+
+    // 对预览区域的样式进行重绘，产生新图形
+    for(var i=0;i&lt;4;i++){
+        prevTable.rows[nextBlock[nextRotateIndex][i].y].cells[nextBlock[nextRotateIndex][i].x].style.background = &apos;#333&apos;
+        prevTable.rows[nextBlock[nextRotateIndex][i].y].cells[nextBlock[nextRotateIndex][i].x].style.borderTop = &apos;4px solid rgba(255,255,255,0.3)&apos;
+        prevTable.rows[nextBlock[nextRotateIndex][i].y].cells[nextBlock[nextRotateIndex][i].x].style.borderRight = &apos;4px solid rgba(255,255,255,0.1)&apos;
+        prevTable.rows[nextBlock[nextRotateIndex][i].y].cells[nextBlock[nextRotateIndex][i].x].style.borderBottom = &apos;4px solid rgba(255,255,255,0.1)&apos;
+        prevTable.rows[nextBlock[nextRotateIndex][i].y].cells[nextBlock[nextRotateIndex][i].x].style.borderLeft = &apos;4px solid rgba(255,255,255,0.2)&apos;
+    }
+}
+</code></pre><hr>
+<p>#####判断底部是否触底</p>
+<pre><code>function checkBottom(){
+    for(var i=0;i&lt;4;i++){
+        if(currentBlock[rotateIndex][i].y == boardHeight-1){
+            return false
+        }
+        if(!isCellValid(currentBlock[rotateIndex][i].y+1,currentBlock[rotateIndex][i].x)){
+            return false
+        }
+    }
+    return true
+}
+</code></pre><hr>
+<p>#####判断左右是否超出边界</p>
+<pre><code>// 判断左侧是否超界
+function checkLeft(){
+    for(var i=0;i&lt;4;i++){
+        if(currentBlock[rotateIndex][i].x == 0){
+            return false
+        }
+        if(!isCellValid(currentBlock[rotateIndex][i].y,currentBlock[rotateIndex][i].x-1)){
+            return false
+        }
+    }
+    return true
+}
+
+判断右侧是否超界
+function checkRight(){
+    for(var i=0;i&lt;4;i++){
+        if(currentBlock[rotateIndex][i].x == boardWidth-1){
+            return false
+        }
+        if(!isCellValid(currentBlock[rotateIndex][i].y,currentBlock[rotateIndex][i].x+1)){
+            return false
+        }
+    }
+    return true
+}
+</code></pre><hr>
+<p>#####检查board中的某一点是否合法（图形是否可以移动到这一点上）</p>
+<pre><code>function isCellValid(y,x){
+    if(x&lt;0 || x&gt;boardWidth-1 || y&lt;0 || y&gt;boardHeight-1){
+        return false
+    }
+    if(board[y][x] == 1){
+        return false
+    }
+    return true
+}
+</code></pre><hr>
+<p>#####检查图形是否可以放入board的初始位置</p>
+<pre><code>function checkPut(){
+    for(var i=0;i&lt;4;i++){
+        if(!isCellValid(currentBlock[rotateIndex][i].y,currentBlock[rotateIndex][i].x)){
+            clearInterval(timer);
+            $(document).unbind(&apos;keydown&apos;,keyBoard)
+            highScore = scores;
+            $(&apos;#highScores&apos;).html(highScore);
+            alert(&apos;Game Over，请重新开始游戏&apos;)
+            return;
+        }
+    }
+}
+</code></pre><hr>
+<p>#####擦除图形（去除css样式）</p>
+<pre><code>function eraseBlock(){
+    for(var i=0;i&lt;4;i++){
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.background = &quot;#ccc&quot;;
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.border = &quot;none&quot;;
+    }
+}
+</code></pre><hr>
+<p>#####重绘图形（重新添加CSS样式）</p>
+<pre><code>function paintBlock(){
+    for(var i=0;i&lt;4;i++){
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.background = &quot;#333&quot;;
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.borderTop = &apos;4px solid rgba(255,255,255,0.3)&apos;;
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.borderRight = &apos;4px solid rgba(255,255,255,0.1)&apos;;
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.borderBottom = &apos;4px solid rgba(255,255,255,0.1)&apos;;
+        table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.borderLeft = &apos;4px solid rgba(255,255,255,0.2)&apos;;
+    }
+}
+</code></pre><hr>
+<p>#####擦除表格（修改表格的css样式）</p>
+<pre><code>function eraseTable(){
+    for(var i=0;i&lt;boardHeight;i++){
+        for(var j=0;j&lt;boardWidth;j++){
+            table.rows[i].cells[j].style.background = &quot;#ccc&quot;;
+            table.rows[i].cells[j].style.border = &quot;none&quot;;
+        }
+    }
+}
+</code></pre><hr>
+<p>#####更新面板board[i][j]的值<br>    function updataBoard(){<br>        for(var i=0;i&lt;4;i++){<br>            board[currentBlock[rotateIndex][i].y][currentBlock[rotateIndex][i].x] = 1;<br>        }<br>    }</p>
+<hr>
+<p>#####重绘表格（根据面板board[][]的值进行CSS样式重绘）</p>
+<pre><code>function paintTable(){
+    for(var i=0;i&lt;boardHeight;i++){
+        for(var j=0;j&lt;boardWidth;j++){
+            if(board[i][j] == 1){
+                table.rows[i].cells[j].style.background = &quot;#555&quot;;
+                table.rows[i].cells[j].style.borderTop = &apos;4px solid rgba(255,255,255,0.3)&apos;;
+                table.rows[i].cells[j].style.borderRight = &apos;4px solid rgba(255,255,255,0.1)&apos;;
+                table.rows[i].cells[j].style.borderBottom = &apos;4px solid rgba(255,255,255,0.1)&apos;;
+                table.rows[i].cells[j].style.borderLeft = &apos;4px solid rgba(255,255,255,0.2)&apos;;
+            }
+        }
+    }
+}
+</code></pre><hr>
+<p>#####存在满行就进行消行</p>
+<pre><code>    var line=0;            // 这个line是记录每次消行的数量（比如每次消2行，则line=2）
+    for(var i=0;i&lt;boardHeight;i++){
+        var j=0;
+        for(;j&lt;boardWidth;j++){
+            if(board[i][j] == 0){
+                break;
+            }
+        }
+        if(j == boardWidth){
+            if(i!=0){
+                for(var k=i-1;k&gt;=0;k--){
+                    board[k+1] = board[k]
+                }
+            line++
+            lines++    
+            }
+            board[0] = createNewRow();
+        }
+    }
+    onecLine = line;    // 这个值是同时一次消掉几行
+
+    // 在面板区域显示每次消掉的行数，1S后自动消失
+    if(onecLine != 0){
+        console.log()
+        $(&apos;.show&apos;).html(&quot;-&quot;+onecLine).css(&apos;animation&apos;,&apos;shine 1s linear&apos;);
+        $(&apos;.show&apos;).css(&apos;opacity&apos;,&apos;0&apos;)
+        setTimeout(function(){
+            $(&apos;.show&apos;).css(&apos;animation&apos;,&apos;none&apos;)
+        },1000)
+    }
+}
+</code></pre><hr>
+<p>#####创建空白行（消行之后要创建空白行进行填补）</p>
+<pre><code>function createNewRow(){
+    var row = new Array(boardWidth)
+    for(var i=0;i&lt;boardWidth;i++){
+        row[i] = 0;
+    }
+    return row
+}
+</code></pre><hr>
+<p>#####键盘按键 ↑ ↓ ← → 的事件绑定</p>
+<pre><code>function keyBoard(e){
+    // 这里需要做一个兼容性配置
+    e = event || window.event
+
+    // 键盘 ↑ 按键，图形变形
+    if(e.keyCode == 38){
+        eraseBlock();
+        if(rotateIndex&lt;currentBlock.length-1){
+            rotateIndex++
+        }else{
+            rotateIndex = 0
+        }
+        // 判断旋转后是否有点存在不合法的情况（这里需要完善，非法情况下仅是不能旋转，需要完善成可以旋转成合法的情况）
+        (function(){for(var i=0;i&lt;4;i++){
+            if(!isCellValid(currentBlock[rotateIndex][i].y,currentBlock[rotateIndex][i].x)){
+                if(rotateIndex == 0){
+                    rotateIndex = currentBlock.length-1
+                }else{
+                    rotateIndex--;
+                }
+                return;
+            }
+        }})()
+        paintBlock();
+    }
+
+    // 键盘 ↓ 按键，加快下落
+    if(e.keyCode == 40){
+        if(checkBottom()){
+            eraseBlock()
+            for(var a=0;a&lt;currentBlock.length;a++){
+                for(var i=0;i&lt;4;i++){
+                    currentBlock[a][i].y = currentBlock[a][i].y+1;
+                }
+            }
+        paintBlock();
+        }else{
+            clearInterval(timer)
+            updataBoard();
+            // printBoard();
+            delRow();
+            changeData();
+            eraseTable();
+            paintTable();
+            rotateIndex = 0;
+            blockMove();
+        }
+    }
+
+    // 键盘 ← 按键
+    if(e.keyCode == 37){
+        if(checkLeft()){
+            eraseBlock()
+            for(var a=0;a&lt;currentBlock.length;a++){
+                for(var i=0;i&lt;4;i++){
+                    currentBlock[a][i].x = currentBlock[a][i].x-1;
+                }
+            }
+            paintBlock();
+        }
+    }
+
+    // 键盘 → 按键
+    if(e.keyCode == 39){
+        if(checkRight()){
+            eraseBlock()
+            for(var a=0;a&lt;currentBlock.length;a++){
+                for(var i=0;i&lt;4;i++){
+                    currentBlock[a][i].x = currentBlock[a][i].x+1;
+                }
+            }
+            paintBlock();
+        }
+    }
+}
+</code></pre><hr>
+<p>#####修改右侧数据</p>
+<pre><code>function changeData(){
+    var score;
+
+    // 修改lines数据
+    $(&apos;#lines&apos;).html(lines);
+
+    // 修改scores数据
+    if(onecLine &gt; 0){
+        switch(onecLine){
+            case 1 :
+                score = 1;
+                break;
+            case 2 :
+                score = 3;
+                break;
+            case 3 :
+                score = 5;
+                break;
+            case 4 :
+                score = 10;
+                break;
+        }
+        scores = scores+score;
+    }
+    $(&apos;#score&apos;).html(scores)
+}
+</code></pre><hr>
+<p>#####根据当前分数的设置游戏等级（图形下落速度）</p>
+<pre><code>function speed(){
+    if(scores&lt;=10){
+        $(&apos;#level&apos;).html(&apos;1&apos;)
+        return speeds[0]
+    }
+    if(scores&lt;=20){
+        $(&apos;#level&apos;).html(&apos;2&apos;)
+        return speeds[1]
+    }
+    if(scores&lt;=30){
+        $(&apos;#level&apos;).html(&apos;3&apos;)
+        return speeds[2]
+    }
+    if(scores&lt;=40){
+        $(&apos;#level&apos;).html(&apos;4&apos;)
+        return speeds[3]
+    }
+    if(scores&lt;=50){
+        $(&apos;#level&apos;).html(&apos;5&apos;)
+        return speeds[4]
+    }else{
+        $(&apos;#level&apos;).html(&apos;6&apos;)
+        return speeds[5]
+    }
+}
+</code></pre><hr>
+<p>#####游戏暂停</p>
+<pre><code>function gamePause(){
+    clearInterval(timer);
+    $(document).unbind(&apos;keydown&apos;,keyBoard)
+    gameStatus = 0;    
+    $(&apos;#pause&apos;).html(&apos;Resume&apos;)
+    $(&apos;#pause&apos;).css(&apos;color&apos;,&apos;red&apos;)
+}
+</code></pre><hr>
+<p>#####游戏继续</p>
+<pre><code>function gameContinue(){
+    clearInterval(timer)
+    interval();
+    $(document).bind(&apos;keydown&apos;,keyBoard);
+    gameStatus = 1;
+    $(&apos;#pause&apos;).html(&apos;Pause&apos;)
+    $(&apos;#pause&apos;).css(&apos;color&apos;,&apos;#000&apos;)
+}
+</code></pre><hr>
+<p>#####游戏初始化设置（开始）<br>    function gameInit(){<br>        lines = 0;<br>        scores= 0;<br>        highScores = 0;<br>        level = 1;                    // 这里以上的数据进行初始化设置</p>
+<pre><code>    changeData();                // 修改面板右侧数据
+    $(&apos;.main&apos;).empty();            // 删除table元素
+    createTable();                // 重新添加table元素及其子元素
+    createBoard();                // 为每一个board[i][j] = 0赋值
+    eraseTable();                // 擦除table的样式
+    rotateIndex = 0;            // 设置rotateIndex的初始值
+    gameStatus = 1;                // 恢复游戏状态
+    blockMove();                // 游戏中所有事件执行的入口
+}
+</code></pre><hr>
+<p>#####这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为 “字母S按键” 为 “开始”，“shift按键” 为 “暂停/继续”）</p>
+<pre><code>$(document).bind(&apos;keydown&apos;,control)
+function control(e){
+    // shift 按键添加pause事件
+    if(gameStatus != 2){
+        if(e.keyCode == 16){
+            if(gameStatus == 1){
+                gamePause();    
+            }else{
+                gameContinue();
+            }
+        }
+    }
+    // 字母 S 按键添加游戏初始化功能
+    if(e.keyCode == 83){
+        if(gameStatus != 0){
+            clearInterval(timer);
+            interval();
+            gameInit();    
+            $(document).unbind(&apos;keydown&apos;,keyBoard)    
+            $(document).bind(&apos;keydown&apos;,keyBoard)        
+        }else{
+            gameContinue();
+            clearInterval(timer);
+            interval();
+            gameInit();
+        }
+    }
+}
+
+// 为start按钮绑定事件
+$(&apos;#start&apos;).bind(&apos;click&apos;,function(){
+    if(gameStatus != 0){
+        clearInterval(timer);
+        interval();
+        gameInit();
+        $(document).unbind(&apos;keydown&apos;,keyBoard)
+        $(document).bind(&apos;keydown&apos;,keyBoard)        
+    }else{
+        gameContinue();
+        clearInterval(timer);
+        interval();
+        gameInit();
+    }
+})
+
+$(&apos;#pause&apos;).bind(&apos;click&apos;,function(){
+    if(gameStatus != 2){
+        if(gameStatus == 1){
+            gamePause();    
+        }else{
+            gameContinue();
+        }
+    }
+})
+</code></pre><p>俄罗斯方块大功告成！！！</p>
+<hr>
+<p>###期间遇到的问题和收获</p>
+<ol>
+<li>判断触底时，只需要对y进行+1操作，最开始对x也进行了+1操作，导致bug；</li>
+<li>最初把7中图形的数据放在了全局作用于，导致随着图形的移动，数据也被进行了修改，相同图形再次出现时直接触底，最终把数据放在函数内，每次都是最初的原始数据，解决问题；</li>
+<li>图形产生时一共用到两次随机数，一次是随机生成图形，一次是随机生成该图形的某一个形状，最初只是第一个用了随机，而后者没有随机产生，后发现并解决；</li>
+<li>多次出现setInterval重复调用，发生功能累积的情况，也多次出现键盘事件绑定重复调用，事件重复执行的情况，最后每次需要调用setInterval和$(document).bind(‘keydown’)前都执行clearInterval和$(document).unbind(‘keydown’)进行事件解除，后续类似情况要多注意；</li>
+<li>图形在最左侧或最右侧进行变形时会出现变性后不合法的情况，需要对这种情况进行判断，目前的解决办法是变形后不合法则阻止变形，个人觉得最好的解决方案是可以变形，但是会调整到合法的位置，目前这个方法还没有完全实现，后续会完善；</li>
+</ol>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
