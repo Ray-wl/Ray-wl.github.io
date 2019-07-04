@@ -117,7 +117,17 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="vue-epubjs实现电子书阅读器-–-epubjs的使用"><a href="#vue-epubjs实现电子书阅读器-–-epubjs的使用" class="headerlink" title="vue+epubjs实现电子书阅读器 – epubjs的使用"></a>vue+epubjs实现电子书阅读器 – epubjs的使用</h2><p>本文的代码摘自慕课网<a href="《快速入门web阅读器开发》">《快速入门web阅读器开发》</a></p>
+<h3 id="npm安装"><a href="#npm安装" class="headerlink" title="npm安装"></a>npm安装</h3><pre><code>npm install epubjs
+</code></pre><h2 id="epub阅读器的开发流程"><a href="#epub阅读器的开发流程" class="headerlink" title="epub阅读器的开发流程"></a>epub阅读器的开发流程</h2><p>epub电子书的解析和渲染</p>
+<h3 id="1-生成Book对象"><a href="#1-生成Book对象" class="headerlink" title="1. 生成Book对象"></a>1. 生成Book对象</h3><pre><code>this.book = new Epub(DOWNLOAD_URL)
+</code></pre><p>DOWNLOAD_URL：电子书的下载地址（或者电子书在静态服务器的存贮地址）</p>
+<h3 id="2-通过Book。renderTo生成Rendition对象"><a href="#2-通过Book。renderTo生成Rendition对象" class="headerlink" title="2. 通过Book。renderTo生成Rendition对象"></a>2. 通过Book。renderTo生成Rendition对象</h3><pre><code>this.rendition = this.book.renderTo(&apos;read&apos;,{
+    width: window.innerWidth,
+    height: window.innerHeight,
+    method: &apos;default&apos;
+})
+</code></pre><p>‘read’：是将book选在在ID名称为read的元素下<br></div>
     <!-- Post Tags -->
     <div class="tags">
       
