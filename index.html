@@ -160,7 +160,27 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="Markdown编辑器的基本语法"><a href="#Markdown编辑器的基本语法" class="headerlink" title="Markdown编辑器的基本语法"></a>Markdown编辑器的基本语法</h2><p>本文引自 <a href="https://www.jianshu.com/p/191d1e21f7ed" target="_blank" rel="noopener">简书：Markdown基本语法</a></p>
+<p>2019/7/2 星期二 下午 2:43:17 </p>
+<p>Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
+<p>相比WYSIWYG编辑器</p>
+<p>优点：</p>
+<ol>
+<li>因为是纯文本，所以只要支持Markdown的地方都能获得一样的边际效果，可以让作者拜托排版的困扰，专心协作；</li>
+<li>操作简单。比如WYSIWYG编辑时标记个标题，先选中内容，再点击导航栏的标题按钮，选择几级标题。要三个步骤，而Markdown只需要在标题内容前加“#”即可。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>需要记一些语法（当然是很简单的语法，五分钟即可学会）；</li>
+<li>有些平台不支持Markdown编辑模式（但常用的一些博客类的网站大都支持，例如简书）。</li>
+</ol>
+<h2 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h2><p>在想要设置为标题的文字前面加“#”来表示</p>
+<p>一个#是一级标题，两个#是二级标题，以此类推，支持立即标题。</p>
+<p>注：标准语法一般在#后面跟个空格再写文字</p>
+<p>示例：</p>
+<p><img src="http://www.wailian.work/images/2019/07/02/title.jpg" alt="标题语法"></p>
+<p>效果如下：</p>
+<h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -193,7 +213,12 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="小程序-–-随心听音乐播放器（未完待续）"><a href="#小程序-–-随心听音乐播放器（未完待续）" class="headerlink" title="小程序 – 随心听音乐播放器（未完待续）"></a>小程序 – 随心听音乐播放器（未完待续）</h2><p>本人喜欢听音乐，所以打算自己写一个音乐播放器，之前用HTML的audio标签写了一个简易版的，能够随机播放指定排行榜的音乐，但是在手机浏览器里面播放时好多后台操作无法使用，需要手机权限（目前还不懂这些），最后决定使用小程序写一个，很多后台操作可以借用微信来完成。</p>
+<p>首先，写了一个1.0.0版本的乞丐版播放器，没有使用QQ音乐的API，而是自己写的songmid数据，主要在于熟悉小程序的编写，搞清套路；</p>
+<p>紧接着升级到1.0.1版本，使用了QQ音乐的API，对返回数据进行处理并使用，前两个版本的界面如下：</p>
+<p><img src="https://i.imgur.com/eWFdm4p.jpg" alt=""></p>
+<p>功能一目了然，不多说。</p>
+<p>最后，升级到1.0.2版本，添加了音乐搜索和播放列表，暂时到此为止，后续有更好的想法会再进行版本升级，本文以1.0.2版本进行说明。</p></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -226,7 +251,29 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="JavaScript实现俄罗斯方块"><a href="#JavaScript实现俄罗斯方块" class="headerlink" title="JavaScript实现俄罗斯方块"></a>JavaScript实现俄罗斯方块</h2><p>一直想用JavaScript写一个小游戏，奈何小白一枚，对于一些游戏的思路和算法不是很清晰，最近闲暇时间在网上看了几篇关于俄罗斯方块的博客，终于理清了思路，决定亲自尝试一下。下面就是我实现的俄罗斯方块的截图，虽然还有不尽人意的地方，但是基本接近游戏版的俄罗斯方块，功能也算齐全，也没有明显的BUG。</p>
+<p><img src="https://i.imgur.com/oebWJ2l.jpg" alt=""></p>
+<p>###主要功能：</p>
+<ol>
+<li>图形移动</li>
+<li>图形变形</li>
+<li>消行，并在中间位置显示每次消行的数量</li>
+<li>图形预览</li>
+<li>右侧数据（分数、行数、最高分、等级）的显示和修改</li>
+<li>游戏开始、暂停，对应键盘按键开始和暂停时间绑定</li>
+<li>随着游戏的进行和分数的增加，等级升高，图形下落速度增快</li>
+</ol>
+<hr>
+<p>###主要思路：</p>
+<ol>
+<li>游戏面板是一个竖20行，横10列的table，并创建一个二维数组board,二维数组的每一项board[i][j]同table的每一项cell一一对应；</li>
+<li>使用table.rows[i].cells[j]获取table中的每一项，并设置当前td的样式，形成图形的形状；</li>
+<li>图形的定义，这部分当时是用了较长的时间才搞明白，如下图，总共是7个图形，共19个形状；</li>
+<li>判断图形是否可以放入初始位置 → 渲染图形 → setInterval自动下落 → 每次下落前判断是否触底 → 执行下落，擦除上一次位置的图形，渲染新图形  → 左右移动（每次移动前判断是都到达边界） → 触底后图形存在的区域board[i][j]=1，擦除面板样式，根据最新board的值重新渲染样式 → 判断是否存在满行，进行消行 → 根据消除的情况修改scores、lines、level的值 → 图形不能放入初始位置，game over，更新hightScores；</li>
+<li>最后将游戏开始、暂停、恢复事件绑定在按钮和相应的键盘按键上；</li>
+<li>上述是大体思路，还有一些细节在开发时需要一一完善。</li>
+</ol>
+<p><img src="https://i.imgur.com/Grxpffz.jpg" alt=""></p></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -259,7 +306,20 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="JavaScript数据交互思路的整理"><a href="#JavaScript数据交互思路的整理" class="headerlink" title="JavaScript数据交互思路的整理"></a>JavaScript数据交互思路的整理</h2><h3 id="本文中关于跨域的内容节选自：HTTPS-WWW-CNBLOGS-COM-ROAM-P-7520433-HTML"><a href="#本文中关于跨域的内容节选自：HTTPS-WWW-CNBLOGS-COM-ROAM-P-7520433-HTML" class="headerlink" title="本文中关于跨域的内容节选自：HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML"></a><strong>本文中关于跨域的内容节选自：<a href="HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML" target="_blank" rel="noopener">HTTPS://WWW.CNBLOGS.COM/ROAM/P/7520433.HTML</a></strong></h3><p>使用JavaScript操作DOM或BOM都只是其主要工作的一部分，在目前越来越多的数据驱动页面的需求来看，JavaScript操作数据在未来的工作中将会占很大的比重。</p>
+<p>那么使用JavaScript如何获取数据？如何操作数据？如何对数据进行处理？是近期学习的重点。</p>
+<p>对于JavaScript操作数据，之前的学习中已经学习了一些入门的基础知识，在学习了解react和Vue时，关于MVVM模型，这些都是有初步了解，但一方面不深入，另一方面长时间没有复习，所以此次关于JavaScript同数据之间的学习仍然需要从零开始这个自己需要认识到。</p>
+<p>关于JavaScript同数据的联系，我初步整理了一个思维导图，图中都是依据自己的理解而表达的，如下：</p>
+<p><img src="https://i.imgur.com/SflCmOt.jpg" alt="JavaScript同数据的关系"></p>
+<p>通过该图可以总结出以下主要学习的知识点：</p>
+<h3 id="1-ajax方法"><a href="#1-ajax方法" class="headerlink" title="1. ajax方法"></a><strong>1. ajax方法</strong></h3><p>可以通过原生JavaScript或jQuery使用ajax方法访问数据，但是面临两个问题</p>
+<blockquote>
+<p>①. 无法直接访问本地数据</p>
+</blockquote>
+<blockquote>
+<p>②. 无法直接访问远程数据</p>
+</blockquote>
+<p>换句话说就是仅仅使用ajax什么数据都访问不成，所以引出后面的两个知识点：Node JS和跨域。</p></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -292,7 +352,26 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">No Post Excerpt</div>
+    <div class="excerpt typo"><h2 id="AJAX学习入门（包含Node-JS创建服务，托管静态文件）"><a href="#AJAX学习入门（包含Node-JS创建服务，托管静态文件）" class="headerlink" title="AJAX学习入门（包含Node JS创建服务，托管静态文件）"></a>AJAX学习入门（包含Node JS创建服务，托管静态文件）</h2><h3 id="ajax介绍"><a href="#ajax介绍" class="headerlink" title="ajax介绍"></a>ajax介绍</h3><p>AJAX = Asynchronous JavaScript and XML(异步的JavaScript和XML)。</p>
+<p>AJAX不是新的编程语言，而是一种使用现在标准的新方法。</p>
+<p>AJAX最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。</p>
+<p>AJAX不需要任何浏览器插件，但需要用户允许JavaScript在浏览器上执行。</p>
+<h3 id="一、原生JavaScript使用AJAX"><a href="#一、原生JavaScript使用AJAX" class="headerlink" title="一、原生JavaScript使用AJAX"></a>一、原生JavaScript使用AJAX</h3><p>原生JavaScript使用AJAX的过程如下：</p>
+<ol>
+<li><p>第一步：获取XMLHttpRequest对象</p>
+</li>
+<li><p>第二部：设置状态监听函数</p>
+</li>
+<li><p>open一个请求（规定请求的类型、参数等）</p>
+</li>
+<li><p>向服务器send一个请求</p>
+</li>
+<li><p>在监听函数中，判断readyState==4 &amp;&amp; status==200，若成立则表示请求成功</p>
+</li>
+<li><p>使用ajax.responseText和ajax.responseXML接收相应数据，并使用原生JS操作DOM进行显示</p>
+</li>
+</ol>
+<p><strong>备注</strong>：ajax.responseText返回的是对应的字符串，ajax.responseXML返回的是对应的HTML结构代码</p></div>
     <!-- Post Tags -->
     <div class="tags">
       
