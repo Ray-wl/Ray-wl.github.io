@@ -106,7 +106,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2019-01-04</span>
-            <span class="time">17:24:36</span>
+            <span class="time">06:39:12</span>
           </span>
           
           <!--  Categories  -->
@@ -129,9 +129,8 @@
         <!-- Post Main Content -->
         <div class="post-content">
           <h2 id="JavaScript实现俄罗斯方块"><a href="#JavaScript实现俄罗斯方块" class="headerlink" title="JavaScript实现俄罗斯方块"></a>JavaScript实现俄罗斯方块</h2><p>一直想用JavaScript写一个小游戏，奈何小白一枚，对于一些游戏的思路和算法不是很清晰，最近闲暇时间在网上看了几篇关于俄罗斯方块的博客，终于理清了思路，决定亲自尝试一下。下面就是我实现的俄罗斯方块的截图，虽然还有不尽人意的地方，但是基本接近游戏版的俄罗斯方块，功能也算齐全，也没有明显的BUG。</p>
-<p><img src="https://i.imgur.com/oebWJ2l.jpg" alt=""></p>
-<p>###主要功能：</p>
-<ol>
+<p><img src="http://www.wailian.work/images/2019/07/08/m9rfd-rx5gl.gif" alt="俄罗斯方块功能展示"></p>
+<h3 id="主要功能："><a href="#主要功能：" class="headerlink" title="主要功能："></a>主要功能：</h3><ol>
 <li>图形移动</li>
 <li>图形变形</li>
 <li>消行，并在中间位置显示每次消行的数量</li>
@@ -141,8 +140,7 @@
 <li>随着游戏的进行和分数的增加，等级升高，图形下落速度增快</li>
 </ol>
 <hr>
-<p>###主要思路：</p>
-<ol>
+<h3 id="主要思路："><a href="#主要思路：" class="headerlink" title="主要思路："></a>主要思路：</h3><ol>
 <li>游戏面板是一个竖20行，横10列的table，并创建一个二维数组board,二维数组的每一项board[i][j]同table的每一项cell一一对应；</li>
 <li>使用table.rows[i].cells[j]获取table中的每一项，并设置当前td的样式，形成图形的形状；</li>
 <li>图形的定义，这部分当时是用了较长的时间才搞明白，如下图，总共是7个图形，共19个形状；</li>
@@ -150,11 +148,10 @@
 <li>最后将游戏开始、暂停、恢复事件绑定在按钮和相应的键盘按键上；</li>
 <li>上述是大体思路，还有一些细节在开发时需要一一完善。</li>
 </ol>
-<p><img src="https://i.imgur.com/Grxpffz.jpg" alt=""></p>
+<p><img src="http://www.wailian.work/images/2019/07/09/bbca3ac3084125cf.jpg" alt="图形汇总"></p>
 <a id="more"></a>
 <hr>
-<p>###HTML代码</p>
-<pre><code>&lt;div class=&quot;wrap&quot;&gt;
+<h3 id="HTML代码"><a href="#HTML代码" class="headerlink" title="HTML代码"></a>HTML代码</h3><pre><code>&lt;div class=&quot;wrap&quot;&gt;
     &lt;div class=&quot;main&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;right&quot;&gt;
         &lt;div class=&quot;nextBlock&quot;&gt;
@@ -211,11 +208,9 @@
     &lt;div class=&quot;show&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre><hr>
-<p>###CSS样式</p>
-<p>本文重点在JavaScript，这里不对样式进行表述。</p>
+<h3 id="CSS样式"><a href="#CSS样式" class="headerlink" title="CSS样式"></a>CSS样式</h3><p>本文重点在JavaScript，这里不对样式进行表述。</p>
 <hr>
-<p>###JavaScript代码</p>
-<p>首先，下面是需要用到的一些变量</p>
+<h3 id="JavaScript代码"><a href="#JavaScript代码" class="headerlink" title="JavaScript代码"></a>JavaScript代码</h3><p>首先，下面是需要用到的一些变量</p>
 <pre><code>// board的行数和列数
 var boardHeight     = 20;                
 var boardWidth        = 10;
@@ -289,8 +284,7 @@ var highScore                         // 游戏的最高分数
 // 存储setInterval的时间间隔，用来设置图形下移速度
 var speeds = [1000,700,500,300,200,100]    
 </code></pre><hr>
-<p>#####动态创建table</p>
-<pre><code>function createTable(){
+<h5 id="动态创建table"><a href="#动态创建table" class="headerlink" title="动态创建table"></a>动态创建table</h5><pre><code>function createTable(){
     var tbl,tr,td;
     tbl = $(&apos;&lt;table&gt;&lt;/table&gt;&apos;).appendTo(&apos;.main&apos;)
     for(var i=0;i&lt;boardHeight;i++){
@@ -302,8 +296,7 @@ var speeds = [1000,700,500,300,200,100]
     table = $(&apos;.main table&apos;)[0]
 }
 </code></pre><hr>
-<p>#####创建board，并与table的每一项cell相对应</p>
-<pre><code>function createBoard(){
+<h5 id="创建board，并与table的每一项cell相对应"><a href="#创建board，并与table的每一项cell相对应" class="headerlink" title="创建board，并与table的每一项cell相对应"></a>创建board，并与table的每一项cell相对应</h5><pre><code>function createBoard(){
     for(var i=0;i&lt;boardHeight;i++){
         board[i] = new Array(boardWidth);
         for(var j=0;j&lt;boardWidth;j++){
@@ -312,8 +305,7 @@ var speeds = [1000,700,500,300,200,100]
     }
 }
 </code></pre><hr>
-<p>#####产生新图形</p>
-<p>这里没有使用变量中定义的originalBlock，因为二者的初始位置不同，我没有通过换算来获取，而是直接使用了两个数据（数据小，直接修改方便）。</p>
+<h5 id="产生新图形"><a href="#产生新图形" class="headerlink" title="产生新图形"></a>产生新图形</h5><p>这里没有使用变量中定义的originalBlock，因为二者的初始位置不同，我没有通过换算来获取，而是直接使用了两个数据（数据小，直接修改方便）。</p>
 <pre><code>function createBlock(){
     block = {
         o : [
@@ -376,8 +368,33 @@ var speeds = [1000,700,500,300,200,100]
     }
 }
 </code></pre><hr>
-<p>#####创建预览区域的图形，并对其进行添加擦除、重绘等操作<br>    function createPrevBoard(){<br>        switch(tuxing[Math.floor(nextRandom*7)]){<br>            case ‘o’ :<br>                nextBlock = originalBlock.o;<br>                break;<br>            case ‘i’ :<br>                nextBlock = originalBlock.i;<br>                break;<br>            case ‘l’ :<br>                nextBlock = originalBlock.l;<br>                break;<br>            case ‘j’ :<br>                nextBlock = originalBlock.j;<br>                break;<br>            case ‘z’ :<br>                nextBlock = originalBlock.z;<br>                break;<br>            case ‘s’ :<br>                nextBlock = originalBlock.s;<br>                break;<br>            case ‘t’ :<br>                nextBlock = originalBlock.t;<br>                break;<br>        }<br>        prevTable = $(‘.nextBlock table’)[0]</p>
-<pre><code>    // 随机产生图形
+<h5 id="创建预览区域的图形，并对其进行添加擦除、重绘等操作"><a href="#创建预览区域的图形，并对其进行添加擦除、重绘等操作" class="headerlink" title="创建预览区域的图形，并对其进行添加擦除、重绘等操作"></a>创建预览区域的图形，并对其进行添加擦除、重绘等操作</h5><pre><code>function createPrevBoard(){
+    switch(tuxing[Math.floor(nextRandom*7)]){
+        case &apos;o&apos; :
+            nextBlock = originalBlock.o;
+            break;
+        case &apos;i&apos; :
+            nextBlock = originalBlock.i;
+            break;
+        case &apos;l&apos; :
+            nextBlock = originalBlock.l;
+            break;
+        case &apos;j&apos; :
+            nextBlock = originalBlock.j;
+            break;
+        case &apos;z&apos; :
+            nextBlock = originalBlock.z;
+            break;
+        case &apos;s&apos; :
+            nextBlock = originalBlock.s;
+            break;
+        case &apos;t&apos; :
+            nextBlock = originalBlock.t;
+            break;
+    }
+    prevTable = $(&apos;.nextBlock table&apos;)[0]
+
+    // 随机产生图形
     nextRotateIndex = Math.floor(nextRandom*nextBlock.length);
 
     // 对预览区域进行擦除
@@ -398,8 +415,7 @@ var speeds = [1000,700,500,300,200,100]
     }
 }
 </code></pre><hr>
-<p>#####判断底部是否触底</p>
-<pre><code>function checkBottom(){
+<h5 id="判断底部是否触底"><a href="#判断底部是否触底" class="headerlink" title="判断底部是否触底"></a>判断底部是否触底</h5><pre><code>function checkBottom(){
     for(var i=0;i&lt;4;i++){
         if(currentBlock[rotateIndex][i].y == boardHeight-1){
             return false
@@ -411,8 +427,7 @@ var speeds = [1000,700,500,300,200,100]
     return true
 }
 </code></pre><hr>
-<p>#####判断左右是否超出边界</p>
-<pre><code>// 判断左侧是否超界
+<h5 id="判断左右是否超出边界"><a href="#判断左右是否超出边界" class="headerlink" title="判断左右是否超出边界"></a>判断左右是否超出边界</h5><pre><code>// 判断左侧是否超界
 function checkLeft(){
     for(var i=0;i&lt;4;i++){
         if(currentBlock[rotateIndex][i].x == 0){
@@ -438,8 +453,7 @@ function checkRight(){
     return true
 }
 </code></pre><hr>
-<p>#####检查board中的某一点是否合法（图形是否可以移动到这一点上）</p>
-<pre><code>function isCellValid(y,x){
+<h5 id="检查board中的某一点是否合法（图形是否可以移动到这一点上）"><a href="#检查board中的某一点是否合法（图形是否可以移动到这一点上）" class="headerlink" title="检查board中的某一点是否合法（图形是否可以移动到这一点上）"></a>检查board中的某一点是否合法（图形是否可以移动到这一点上）</h5><pre><code>function isCellValid(y,x){
     if(x&lt;0 || x&gt;boardWidth-1 || y&lt;0 || y&gt;boardHeight-1){
         return false
     }
@@ -449,8 +463,7 @@ function checkRight(){
     return true
 }
 </code></pre><hr>
-<p>#####检查图形是否可以放入board的初始位置</p>
-<pre><code>function checkPut(){
+<h5 id="检查图形是否可以放入board的初始位置"><a href="#检查图形是否可以放入board的初始位置" class="headerlink" title="检查图形是否可以放入board的初始位置"></a>检查图形是否可以放入board的初始位置</h5><pre><code>function checkPut(){
     for(var i=0;i&lt;4;i++){
         if(!isCellValid(currentBlock[rotateIndex][i].y,currentBlock[rotateIndex][i].x)){
             clearInterval(timer);
@@ -463,16 +476,14 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####擦除图形（去除css样式）</p>
-<pre><code>function eraseBlock(){
+<h5 id="擦除图形（去除css样式）"><a href="#擦除图形（去除css样式）" class="headerlink" title="擦除图形（去除css样式）"></a>擦除图形（去除css样式）</h5><pre><code>function eraseBlock(){
     for(var i=0;i&lt;4;i++){
         table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.background = &quot;#ccc&quot;;
         table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.border = &quot;none&quot;;
     }
 }
 </code></pre><hr>
-<p>#####重绘图形（重新添加CSS样式）</p>
-<pre><code>function paintBlock(){
+<h5 id="重绘图形（重新添加CSS样式）"><a href="#重绘图形（重新添加CSS样式）" class="headerlink" title="重绘图形（重新添加CSS样式）"></a>重绘图形（重新添加CSS样式）</h5><pre><code>function paintBlock(){
     for(var i=0;i&lt;4;i++){
         table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.background = &quot;#333&quot;;
         table.rows[currentBlock[rotateIndex][i].y].cells[currentBlock[rotateIndex][i].x].style.borderTop = &apos;4px solid rgba(255,255,255,0.3)&apos;;
@@ -482,8 +493,7 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####擦除表格（修改表格的css样式）</p>
-<pre><code>function eraseTable(){
+<h5 id="擦除表格（修改表格的css样式）"><a href="#擦除表格（修改表格的css样式）" class="headerlink" title="擦除表格（修改表格的css样式）"></a>擦除表格（修改表格的css样式）</h5><pre><code>function eraseTable(){
     for(var i=0;i&lt;boardHeight;i++){
         for(var j=0;j&lt;boardWidth;j++){
             table.rows[i].cells[j].style.background = &quot;#ccc&quot;;
@@ -492,10 +502,13 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####更新面板board[i][j]的值<br>    function updataBoard(){<br>        for(var i=0;i&lt;4;i++){<br>            board[currentBlock[rotateIndex][i].y][currentBlock[rotateIndex][i].x] = 1;<br>        }<br>    }</p>
-<hr>
-<p>#####重绘表格（根据面板board[][]的值进行CSS样式重绘）</p>
-<pre><code>function paintTable(){
+<h5 id="更新面板board-i-j-的值"><a href="#更新面板board-i-j-的值" class="headerlink" title="更新面板board[i][j]的值"></a>更新面板board[i][j]的值</h5><pre><code>function updataBoard(){
+    for(var i=0;i&lt;4;i++){
+        board[currentBlock[rotateIndex][i].y][currentBlock[rotateIndex][i].x] = 1;
+    }
+}
+</code></pre><hr>
+<h5 id="重绘表格（根据面板board-的值进行CSS样式重绘）"><a href="#重绘表格（根据面板board-的值进行CSS样式重绘）" class="headerlink" title="重绘表格（根据面板board[][]的值进行CSS样式重绘）"></a>重绘表格（根据面板board[][]的值进行CSS样式重绘）</h5><pre><code>function paintTable(){
     for(var i=0;i&lt;boardHeight;i++){
         for(var j=0;j&lt;boardWidth;j++){
             if(board[i][j] == 1){
@@ -509,8 +522,7 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####存在满行就进行消行</p>
-<pre><code>    var line=0;            // 这个line是记录每次消行的数量（比如每次消2行，则line=2）
+<h5 id="存在满行就进行消行"><a href="#存在满行就进行消行" class="headerlink" title="存在满行就进行消行"></a>存在满行就进行消行</h5><pre><code>    var line=0;            // 这个line是记录每次消行的数量（比如每次消2行，则line=2）
     for(var i=0;i&lt;boardHeight;i++){
         var j=0;
         for(;j&lt;boardWidth;j++){
@@ -542,8 +554,7 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####创建空白行（消行之后要创建空白行进行填补）</p>
-<pre><code>function createNewRow(){
+<h5 id="创建空白行（消行之后要创建空白行进行填补）"><a href="#创建空白行（消行之后要创建空白行进行填补）" class="headerlink" title="创建空白行（消行之后要创建空白行进行填补）"></a>创建空白行（消行之后要创建空白行进行填补）</h5><pre><code>function createNewRow(){
     var row = new Array(boardWidth)
     for(var i=0;i&lt;boardWidth;i++){
         row[i] = 0;
@@ -551,8 +562,7 @@ function checkRight(){
     return row
 }
 </code></pre><hr>
-<p>#####键盘按键 ↑ ↓ ← → 的事件绑定</p>
-<pre><code>function keyBoard(e){
+<h5 id="键盘按键-↑-↓-←-→-的事件绑定"><a href="#键盘按键-↑-↓-←-→-的事件绑定" class="headerlink" title="键盘按键 ↑ ↓ ← → 的事件绑定"></a>键盘按键 ↑ ↓ ← → 的事件绑定</h5><pre><code>function keyBoard(e){
     // 这里需要做一个兼容性配置
     e = event || window.event
 
@@ -628,8 +638,7 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####修改右侧数据</p>
-<pre><code>function changeData(){
+<h5 id="修改右侧数据"><a href="#修改右侧数据" class="headerlink" title="修改右侧数据"></a>修改右侧数据</h5><pre><code>function changeData(){
     var score;
 
     // 修改lines数据
@@ -656,8 +665,7 @@ function checkRight(){
     $(&apos;#score&apos;).html(scores)
 }
 </code></pre><hr>
-<p>#####根据当前分数的设置游戏等级（图形下落速度）</p>
-<pre><code>function speed(){
+<h5 id="根据当前分数的设置游戏等级（图形下落速度）"><a href="#根据当前分数的设置游戏等级（图形下落速度）" class="headerlink" title="根据当前分数的设置游戏等级（图形下落速度）"></a>根据当前分数的设置游戏等级（图形下落速度）</h5><pre><code>function speed(){
     if(scores&lt;=10){
         $(&apos;#level&apos;).html(&apos;1&apos;)
         return speeds[0]
@@ -683,8 +691,7 @@ function checkRight(){
     }
 }
 </code></pre><hr>
-<p>#####游戏暂停</p>
-<pre><code>function gamePause(){
+<h5 id="游戏暂停"><a href="#游戏暂停" class="headerlink" title="游戏暂停"></a>游戏暂停</h5><pre><code>function gamePause(){
     clearInterval(timer);
     $(document).unbind(&apos;keydown&apos;,keyBoard)
     gameStatus = 0;    
@@ -692,8 +699,7 @@ function checkRight(){
     $(&apos;#pause&apos;).css(&apos;color&apos;,&apos;red&apos;)
 }
 </code></pre><hr>
-<p>#####游戏继续</p>
-<pre><code>function gameContinue(){
+<h5 id="游戏继续"><a href="#游戏继续" class="headerlink" title="游戏继续"></a>游戏继续</h5><pre><code>function gameContinue(){
     clearInterval(timer)
     interval();
     $(document).bind(&apos;keydown&apos;,keyBoard);
@@ -702,8 +708,13 @@ function checkRight(){
     $(&apos;#pause&apos;).css(&apos;color&apos;,&apos;#000&apos;)
 }
 </code></pre><hr>
-<p>#####游戏初始化设置（开始）<br>    function gameInit(){<br>        lines = 0;<br>        scores= 0;<br>        highScores = 0;<br>        level = 1;                    // 这里以上的数据进行初始化设置</p>
-<pre><code>    changeData();                // 修改面板右侧数据
+<h5 id="游戏初始化设置（开始）"><a href="#游戏初始化设置（开始）" class="headerlink" title="游戏初始化设置（开始）"></a>游戏初始化设置（开始）</h5><pre><code>function gameInit(){
+    lines = 0;
+    scores= 0;
+    highScores = 0;
+    level = 1;                    // 这里以上的数据进行初始化设置
+
+    changeData();                // 修改面板右侧数据
     $(&apos;.main&apos;).empty();            // 删除table元素
     createTable();                // 重新添加table元素及其子元素
     createBoard();                // 为每一个board[i][j] = 0赋值
@@ -713,8 +724,7 @@ function checkRight(){
     blockMove();                // 游戏中所有事件执行的入口
 }
 </code></pre><hr>
-<p>#####这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为 “字母S按键” 为 “开始”，“shift按键” 为 “暂停/继续”）</p>
-<pre><code>$(document).bind(&apos;keydown&apos;,control)
+<h5 id="这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为-“字母S按键”-为-“开始”，“shift按键”-为-“暂停-继续”）"><a href="#这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为-“字母S按键”-为-“开始”，“shift按键”-为-“暂停-继续”）" class="headerlink" title="这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为 “字母S按键” 为 “开始”，“shift按键” 为 “暂停/继续”）"></a>这里还需要为面板右侧两个按钮的绑定事件，并定义两个键盘按键绑定相同事件以实现游戏开始、暂停、恢复的功能（这里设置的为 “字母S按键” 为 “开始”，“shift按键” 为 “暂停/继续”）</h5><pre><code>$(document).bind(&apos;keydown&apos;,control)
 function control(e){
     // shift 按键添加pause事件
     if(gameStatus != 2){
@@ -770,8 +780,7 @@ $(&apos;#pause&apos;).bind(&apos;click&apos;,function(){
 })
 </code></pre><p>俄罗斯方块大功告成！！！</p>
 <hr>
-<p>###期间遇到的问题和收获</p>
-<ol>
+<h3 id="期间遇到的问题和收获"><a href="#期间遇到的问题和收获" class="headerlink" title="期间遇到的问题和收获"></a>期间遇到的问题和收获</h3><ol>
 <li>判断触底时，只需要对y进行+1操作，最开始对x也进行了+1操作，导致bug；</li>
 <li>最初把7中图形的数据放在了全局作用于，导致随着图形的移动，数据也被进行了修改，相同图形再次出现时直接触底，最终把数据放在函数内，每次都是最初的原始数据，解决问题；</li>
 <li>图形产生时一共用到两次随机数，一次是随机生成图形，一次是随机生成该图形的某一个形状，最初只是第一个用了随机，而后者没有随机产生，后发现并解决；</li>
