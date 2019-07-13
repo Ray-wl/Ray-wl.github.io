@@ -120,9 +120,11 @@
     <div class="excerpt typo"><h2 id="axios实现跨域访问"><a href="#axios实现跨域访问" class="headerlink" title="axios实现跨域访问"></a>axios实现跨域访问</h2><h4 id="安装axios，并在main-js中引入"><a href="#安装axios，并在main-js中引入" class="headerlink" title="安装axios，并在main.js中引入"></a>安装axios，并在main.js中引入</h4><pre><code>import Axios from &apos;axios
 
 // 把axios挂载到Vue原型中，这样在vue的每个组件中都可以通过使用this.$axios发起axios请求，不用再每个组件中都再次import Axios from &apos;axios&apos;
+
 Vue.prototype.$axios = Axios
 
 // 重点就在这里，Vue.prototype.HOME = &apos;/api&apos; 是一个定值，默认指向localhost，如本文所修改的，将&apos;/api&apos;挂载到变量HOME上，项目中需要访问&apos;/api&apos;直接使用this.HOME就可以（&apos;/api&apos;指向的路径要看config/index.js文件中target的具体设置，见下文）。
+
 Vue.prototype.HOME = &apos;/api&apos;
 </code></pre></div>
     <!-- Post Tags -->
@@ -337,7 +339,7 @@ Vue.prototype.HOME = &apos;/api&apos;
       
         
 
-<a class="tag" href="/tags/数据交互/">数据交互</a> <a class="tag" href="/tags/JavaScript/">JavaScript</a>
+<a class="tag" href="/tags/JavaScript/">JavaScript</a> <a class="tag" href="/tags/数据交互/">数据交互</a>
 
 
       
@@ -389,7 +391,7 @@ Vue.prototype.HOME = &apos;/api&apos;
       
         
 
-<a class="tag" href="/tags/JavaScript/">JavaScript</a> <a class="tag" href="/tags/ajax/">ajax</a>
+<a class="tag" href="/tags/ajax/">ajax</a> <a class="tag" href="/tags/JavaScript/">JavaScript</a>
 
 
       
