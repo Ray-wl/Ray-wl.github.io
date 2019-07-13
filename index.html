@@ -213,14 +213,7 @@ Vue.prototype.HOME = &apos;/api&apos;
 <ol>
 <li>需要记一些语法（当然是很简单的语法，五分钟即可学会）；</li>
 <li>有些平台不支持Markdown编辑模式（但常用的一些博客类的网站大都支持，例如简书）。</li>
-</ol>
-<h2 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h2><p>在想要设置为标题的文字前面加“#”来表示</p>
-<p>一个#是一级标题，两个#是二级标题，以此类推，支持立即标题。</p>
-<p>注：标准语法一般在#后面跟个空格再写文字</p>
-<p>示例：</p>
-<p><img src="http://www.wailian.work/images/2019/07/02/title.jpg" alt="标题语法"></p>
-<p>效果如下：</p>
-<h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6></div>
+</ol></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -292,26 +285,7 @@ Vue.prototype.HOME = &apos;/api&apos;
     </div>
     <!-- Post Excerpt -->
     <div class="excerpt typo"><h2 id="JavaScript实现俄罗斯方块"><a href="#JavaScript实现俄罗斯方块" class="headerlink" title="JavaScript实现俄罗斯方块"></a>JavaScript实现俄罗斯方块</h2><p>一直想用JavaScript写一个小游戏，奈何小白一枚，对于一些游戏的思路和算法不是很清晰，最近闲暇时间在网上看了几篇关于俄罗斯方块的博客，终于理清了思路，决定亲自尝试一下。下面就是我实现的俄罗斯方块的截图，虽然还有不尽人意的地方，但是基本接近游戏版的俄罗斯方块，功能也算齐全，也没有明显的BUG。</p>
-<p><img src="http://www.wailian.work/images/2019/07/08/m9rfd-rx5gl.gif" alt="俄罗斯方块功能展示"></p>
-<h3 id="主要功能："><a href="#主要功能：" class="headerlink" title="主要功能："></a>主要功能：</h3><ol>
-<li>图形移动</li>
-<li>图形变形</li>
-<li>消行，并在中间位置显示每次消行的数量</li>
-<li>图形预览</li>
-<li>右侧数据（分数、行数、最高分、等级）的显示和修改</li>
-<li>游戏开始、暂停，对应键盘按键开始和暂停时间绑定</li>
-<li>随着游戏的进行和分数的增加，等级升高，图形下落速度增快</li>
-</ol>
-<hr>
-<h3 id="主要思路："><a href="#主要思路：" class="headerlink" title="主要思路："></a>主要思路：</h3><ol>
-<li>游戏面板是一个竖20行，横10列的table，并创建一个二维数组board,二维数组的每一项board[i][j]同table的每一项cell一一对应；</li>
-<li>使用table.rows[i].cells[j]获取table中的每一项，并设置当前td的样式，形成图形的形状；</li>
-<li>图形的定义，这部分当时是用了较长的时间才搞明白，如下图，总共是7个图形，共19个形状；</li>
-<li>判断图形是否可以放入初始位置 → 渲染图形 → setInterval自动下落 → 每次下落前判断是否触底 → 执行下落，擦除上一次位置的图形，渲染新图形  → 左右移动（每次移动前判断是都到达边界） → 触底后图形存在的区域board[i][j]=1，擦除面板样式，根据最新board的值重新渲染样式 → 判断是否存在满行，进行消行 → 根据消除的情况修改scores、lines、level的值 → 图形不能放入初始位置，game over，更新hightScores；</li>
-<li>最后将游戏开始、暂停、恢复事件绑定在按钮和相应的键盘按键上；</li>
-<li>上述是大体思路，还有一些细节在开发时需要一一完善。</li>
-</ol>
-<p><img src="http://www.wailian.work/images/2019/07/09/bbca3ac3084125cf.jpg" alt="图形汇总"></p></div>
+<p><img src="http://www.wailian.work/images/2019/07/08/m9rfd-rx5gl.gif" alt="俄罗斯方块功能展示"></p></div>
     <!-- Post Tags -->
     <div class="tags">
       
